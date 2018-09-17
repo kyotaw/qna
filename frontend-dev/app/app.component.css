@@ -1,0 +1,10 @@
+.outer-content-wrapper {
+  min-height: 600px;
+  height: 100%;
+}
+
+.copyright {
+  color: #515151;
+  font-size: 14px;
+}
+

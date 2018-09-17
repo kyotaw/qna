@@ -1,0 +1,35 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <a class="public-link" routerLink="/">QnA Experiment</a>
+    <span class="toolbar-spacer"></span>
+    <a *ngIf="!isLoggedIn" class="public-link" routerLink="/login">Login</a>
+    <a *ngIf="isLoggedIn" class="public-link" (click)="logout()">Logout</a>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-toolbar>
+  <mat-toolbar-row>
+    <div class="links-wrapper">
+      <div class="link-container">
+        <a class="private-link" routerLink="/qbot">Chat</a>
+      </div>
+      <div class="link-container" *ngIf="isLoggedIn">
+        <a class="private-link" routerLink="/sensors">Sensors</a>
+      </div>
+      <div class="link-container" *ngIf="isLoggedIn">
+        <a class="private-link" routerLink="/">API</a>
+      </div>
+      <div class="link-container" *ngIf="isLoggedIn">
+        <a class="private-link" routerLink="/profile">Account</a>
+      </div>
+      <span class="toolbar-spacer"></span>
+      <div class="link-container">
+          <a class="private-link" href="https://www.qnamaker.ai/" target=”_blank”>QnA Maker Portal</a>
+      </div>
+      <div class="link-container">
+        <a class="private-link" href="https://portal.azure.com/" target=”_blank”>Azure Portal</a>
+      </div>
+    </div>
+    <span class="toolbar-spacer"></span>
+    <span class="user-id" *ngIf="isLoggedIn">ID: {{userId}}</span>
+  </mat-toolbar-row>
+</mat-toolbar>
