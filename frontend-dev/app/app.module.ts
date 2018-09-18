@@ -17,6 +17,7 @@ import {
 import { FlexLayoutModule } from '@angular/flex-layout'; 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table'
 
 import { ClipboardModule } from 'ngx-clipboard';
 
@@ -36,6 +37,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { DeleteAccountComponent } from './delete-account/delete-account.component';
 import { CertificationComponent } from './certification/certification.component';
 import { QbotComponent } from './qbot/qbot.component';
+import { QnalistComponent } from './qnalist/qnalist.component';
 
 @NgModule({
     declarations: [
@@ -48,6 +50,7 @@ import { QbotComponent } from './qbot/qbot.component';
         DeleteAccountComponent,
         CertificationComponent,
         QbotComponent,
+        QnalistComponent,
   ],
     imports: [
         BrowserModule,
@@ -57,6 +60,7 @@ import { QbotComponent } from './qbot/qbot.component';
         MatCardModule,
         MatDividerModule,
         MatIconModule,
+        MatTableModule,
         MatTooltipModule,
         MatGridListModule,
         MatToolbarModule,
