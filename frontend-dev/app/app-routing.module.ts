@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { QnAListComponent} from './qnalist/qnalist.component';
 import { QbotComponent} from './qbot/qbot.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { DeleteAccountComponent } from './delete-account/delete-account.component';
@@ -13,6 +14,7 @@ import { CanActivateViaAuthGuardInterceptor } from './interceptors/can-activate-
 
 const routes: Routes = [
     { path: 'qbot', component: QbotComponent },
+    { path: 'qnalist', component: QnAListComponent },
     { path: 'profile', component: ProfileComponent, canActivate: [CanActivateViaAuthGuardInterceptor] },
     { path: 'profile/changepassword', component: ChangePasswordComponent, canActivate: [CanActivateViaAuthGuardInterceptor] },
     { path: 'profile/deleteaccount', component: DeleteAccountComponent, canActivate: [CanActivateViaAuthGuardInterceptor] },

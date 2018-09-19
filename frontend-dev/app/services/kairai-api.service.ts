@@ -13,19 +13,9 @@ export class KairaiApiService {
 
     constructor(private http: HttpClient) {}
 
-    getMonos(): Observable<Object> {
-        const url = this.baseUrl + 'monos';
-        return this._get(url);
-    }
-
-    getDataSources(): Observable<Object> {
-        const url = this.baseUrl + 'data_sources';
-        return this._get(url);
-    }
-
-    getChannel(channelId: string): Observable<Object> {
-        const url = this.baseUrl + 'channels/' + channelId;
-        return this._get(url);
+    getQnAs(kbId: string, environment: string): Observable<Object> {
+        const url = this.baseUrl + 'qnas';
+        return this._get(url, { kbId: kbId, environment: environment });
     }
 
     signUp(email: string, password: string) {

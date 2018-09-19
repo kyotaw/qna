@@ -23,6 +23,7 @@ import { ClipboardModule } from 'ngx-clipboard';
 
 import { KairaiApiService } from './services/kairai-api.service';
 import { UserService } from './services/user.service';
+import { QnAService } from './services/qna.service';
 
 import { JwtIterceptor } from './interceptors/jwt.interceptor';
 import { CanActivateViaAuthGuardInterceptor } from './interceptors/can-activate-via-auth-guard.interceptor';
@@ -37,7 +38,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { DeleteAccountComponent } from './delete-account/delete-account.component';
 import { CertificationComponent } from './certification/certification.component';
 import { QbotComponent } from './qbot/qbot.component';
-import { QnalistComponent } from './qnalist/qnalist.component';
+import { QnAListComponent } from './qnalist/qnalist.component';
 
 @NgModule({
     declarations: [
@@ -50,7 +51,7 @@ import { QnalistComponent } from './qnalist/qnalist.component';
         DeleteAccountComponent,
         CertificationComponent,
         QbotComponent,
-        QnalistComponent,
+        QnAListComponent,
   ],
     imports: [
         BrowserModule,
@@ -79,6 +80,7 @@ import { QnalistComponent } from './qnalist/qnalist.component';
   providers: [
       KairaiApiService,
       UserService,
+      QnAService,
       {
         provide: HTTP_INTERCEPTORS,
         useClass: JwtIterceptor,

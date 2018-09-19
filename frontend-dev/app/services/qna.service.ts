@@ -1,11 +1,24 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
+import 'rxjs/add/operator/map';
+
+import { KairaiApiService } from './kairai-api.service';
+import { QnA } from '../models/qna.model';
 
 @Injectable()
 export class QnAService {
 
-  constructor(private http: HttpClient) { }
+    constructor(private kairaiApi: KairaiApiService) {}
 
+    getQnAs(kbId: string, environment: string) {
+        return this.kairaiApi.getQnAs(kbId, environment).map(json => {
+            let data = json['data'];
+            let qnas = []
+            for (let d of data['qnas']) {
+                const qna = new QnA(d);
+                qnas.push(qna);
+            }
+            return qnas;
+        });
+    }
 }

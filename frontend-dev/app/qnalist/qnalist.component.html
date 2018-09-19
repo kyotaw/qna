@@ -1,28 +1,28 @@
 <div class="wrapper">
   <h2 class="error-msg">{{errorMessage}}</h2>
-  <table mat-table [dataSource]="dataSource">
+  <mat-table [dataSource]="qnas">
 
-    <ng-container matColumnDef="No.">
-      <th mat-header-cell *matHeaderCellDef> Symbol </th>
-      <td mat-cell *matCellDef="let qna"> {{qna.id}} </td>
+    <ng-container matColumnDef="No">
+      <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+      <mat-cell *matCellDef="let qna"> {{qna.id}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="Q">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
-      <td mat-cell *matCellDef="let qna"> {{element.q}} </td>
+    <ng-container matColumnDef="Question">
+      <mat-header-cell *matHeaderCellDef> Question </mat-header-cell>
+      <mat-cell *matCellDef="let qna"> {{qna.questions}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="A">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let qna"> {{element.n}} </td>
+    <ng-container matColumnDef="Answer">
+      <mat-header-cell *matHeaderCellDef> Answer </mat-header-cell>
+      <mat-cell *matCellDef="let qna"> {{qna.answer}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="MetaData">
-      <th mat-header-cell *matHeaderCellDef> Weight </th>
-      <td mat-cell *matCellDef="let qna"> {{element.metadata}} </td>
+    <ng-container matColumnDef="Metadata">
+      <mat-header-cell *matHeaderCellDef> Metadata </mat-header-cell>
+      <mat-cell *matCellDef="let qna"> {{qna.metadata}} </mat-cell>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
 </div>
