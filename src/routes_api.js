@@ -2,6 +2,7 @@
 
 const Router = require('express').Router
     , userController = require('./controllers/user_controller')
+    , qnaController = require('./controllers/qna_controller')
 //    , authController = require('./controllers/auth_controller')
 //    , siteController = require('./controllers/site_controller')
 //    , authFilter = require('./middlewares/auth_filter')
@@ -11,6 +12,9 @@ const Router = require('express').Router
 function routes() {
     const root = '/api/';
     let router = Router();
+
+    const qnas = root + 'qnas/';
+    router.get(qnas, qnaController.getQnAs);
     
     // require authentication    
     //const authenticate = authFilter.authenticateWithJwt();

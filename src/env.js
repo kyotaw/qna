@@ -81,8 +81,10 @@
         }
     },
 
-    Env.channel = {
-        maxFps: process.env.CHANNEL_MAX_FPS || settings.CHANNEL_MAX_FPS || 500
+    Env.qnaMaker = {
+        baseUrl: 'https://westus.api.cognitive.microsoft.com/qnamaker',
+        version: 'v4.0',
+        subscriptionKey: process.env.QNAMAKER_SUBSCRIPTION_KEY || settings.QNAMAKER_SUBSCRIPTION_KEY || null,
     }
 
 }(exports));

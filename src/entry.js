@@ -36,8 +36,8 @@ async function start() {
     const server = http.createServer(app);
 
     await db.start();
-    server.listen(env.APISERVER_PORT, () => {
-	    console.log('Kairai server is working');
+    server.listen(env.APISERVER_PORT, env.APISERVER_HOST, () => {
+	    console.log('Kairai server is working at ' + env.APISERVER_HOST + ':' + env.APISERVER_PORT);
     });
 }
 
