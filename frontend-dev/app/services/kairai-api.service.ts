@@ -18,6 +18,10 @@ export class KairaiApiService {
         return this._get(url, { kbId: kbId, environment: environment });
     }
 
+    uploadFile(file: FormData, fileType: string): Observable<Object> {
+        const url = this.baseUrl + 'qnas';
+    }
+
     signUp(email: string, password: string) {
         const url = this.baseUrl + 'auth/signup';
         return this._post(url, {email: email, password: password});

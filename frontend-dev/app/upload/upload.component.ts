@@ -8,20 +8,22 @@ import { catchError, last, map, tap } from 'rxjs/operators';
 
 
 @Component({
-  selector: 'app-upload',
-  templateUrl: './upload.component.html',
-  styleUrls: ['./upload.component.css']
+    selector: 'app-upload',
+    templateUrl: './upload.component.html',
+    styleUrls: ['./upload.component.css'],
+    animations: [
+        trigger('fadeInOut', [
+            state('in', style({ opacity: 100 })),
+            transition('* => void', [
+                animate(300, style({ opacity: 0 }))
+            ])
+       ])
+  ]
 })
 export class UploadComponent implements OnInit {
 
-    /** Name used in form which will be sent in HTTP request. */
-    @Input() param = 'file';
-    /** Target URL for file uploading. */
-    @Input() target = 'https://file.io';
-    /** File extension that accepted, same as 'accept' of <input type="file" />. 
-    By the default, it's set to 'image/*'. */
-    @Input() accept = 'image/*';
-    /** Allow you to add handler after its completion. Bubble up response text from remote. */
+    endpoin = 'https://file.io';
+    accept = 'text/csv';
     @Output() complete = new EventEmitter<string>();
 
     private files: Array<FileUploadModel> = [];
@@ -31,7 +33,7 @@ export class UploadComponent implements OnInit {
     selectFiles(fileType) {
         const fileUpload = document.getElementById('fileUpload') as HTMLInputElement;
         fileUpload.onchange = () => {
-            for (let file in fileUpload.files) {
+            for (let file of fileUpload.files) {
                 this.files.push({ data: file, state: 'in', 
                 inProgress: false, progress: 0, canCancel: true });
             }
@@ -45,9 +47,13 @@ export class UploadComponent implements OnInit {
             this.removeFileFromArray(file);
       }
 
+      setAccept(accept) {
+          this.accept = accept;
+      }
+
       private uploadFile(file: FileUploadModel) {
           const fd = new FormData();
-          fd.append(this.param, file.data);
+          fd.append('file', file.data);
           const req = new HttpRequest('POST', this.target, fd, {
               reportProgress: true
           });
@@ -73,7 +79,6 @@ export class UploadComponent implements OnInit {
           ).subscribe(
               (event: any) => {
                   if (typeof (event) === 'object') {
-                      this.removeFileFromArray(file);
                       this.complete.emit(event.body);
                   }
               }

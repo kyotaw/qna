@@ -12,3 +12,28 @@
   text-align: center;
   margin: 20px auto;
  }
+
+.upload-icon {
+  font-size: 58px;
+  width: 58px;
+  height: 58px;
+}
+
+.cancel-icon-wrapper {
+  float: right;
+}
+
+.cancel-icon {
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.upload-progress {
+  margin: 0 auto;
+  width: 50%;
+}
+
+li {
+  margin-bottom: 20px;
+}
