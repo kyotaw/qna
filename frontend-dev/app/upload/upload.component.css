@@ -1,0 +1,14 @@
+.wrapper {
+  width: 100%;
+  position: relative;
+}
+
+.toggle-container {
+  text-align: center;
+  margin: 20px auto;
+ }
+
+ .upload-button {
+  text-align: center;
+  margin: 20px auto;
+ }

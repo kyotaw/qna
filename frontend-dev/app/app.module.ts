@@ -18,6 +18,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table'
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 import { ClipboardModule } from 'ngx-clipboard';
 
@@ -39,6 +41,7 @@ import { DeleteAccountComponent } from './delete-account/delete-account.componen
 import { CertificationComponent } from './certification/certification.component';
 import { QbotComponent } from './qbot/qbot.component';
 import { QnAListComponent } from './qnalist/qnalist.component';
+import { UploadComponent } from './upload/upload.component';
 
 @NgModule({
     declarations: [
@@ -52,15 +55,18 @@ import { QnAListComponent } from './qnalist/qnalist.component';
         CertificationComponent,
         QbotComponent,
         QnAListComponent,
+        UploadComponent,
   ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
         MatButtonModule,
+        MatButtonToggleModule,
         MatCheckboxModule,
         MatCardModule,
         MatDividerModule,
         MatIconModule,
+        MatProgressBarModule,
         MatTableModule,
         MatTooltipModule,
         MatGridListModule,
