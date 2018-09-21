@@ -11,17 +11,20 @@ import { QnA } from '../models/qna.model';
 })
 export class QnAListComponent implements OnInit {
     currentKb: string;
-    qnas: MatTableDataSource;
+    qnas: MatTableDataSource<QnA>;
     displayedColumns: string[] = ['No', 'Question', 'Answer', 'Metadata'];
+    isLoaded: boolean;
 
     constructor(private qnaService: QnAService) {
         this.currentKb =  '51cf11c3-891e-4d42-a7b6-b2b9f5af92f5';
-        this.anas = null;
+        this.qnas = null;
+        this.isLoaded = false;
     }
 
     ngOnInit() {
         this.qnaService.getQnAs(this.currentKb, 'Prod').subscribe(qnas => {
             this.qnas = new MatTableDataSource(qnas);
+            this.isLoaded = true;
         });
     }
 

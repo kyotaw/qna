@@ -19,7 +19,9 @@ export class KairaiApiService {
     }
 
     uploadFile(file: FormData, fileType: string): Observable<Object> {
-        const url = this.baseUrl + 'qnas';
+        const url = this.baseUrl + 'qnas/files';
+        let options = {params: {fileType: fileType}};
+        return this._post(url, file, options);
     }
 
     signUp(email: string, password: string) {
@@ -65,10 +67,8 @@ export class KairaiApiService {
         return this.http.get(url, options);
     }
 
-    _post(url, params) {
-        const options = {
-            withCredentials: true
-        }
+    _post(url, params, options={}) {
+        options['withCredentials'] = true;
         return this.http.post(url, params, options);
     }
 

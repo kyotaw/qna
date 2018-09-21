@@ -19,7 +19,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table'
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { ClipboardModule } from 'ngx-clipboard';
 
@@ -57,7 +57,7 @@ import { UploadComponent } from './upload/upload.component';
         QnAListComponent,
         UploadComponent,
   ],
-    imports: [
+  imports: [
         BrowserModule,
         BrowserAnimationsModule,
         MatButtonModule,

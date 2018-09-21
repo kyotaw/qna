@@ -7,7 +7,7 @@
     try {
 	    settings = require('../settings');
     } catch (e) {
-        console.log('Lot Settings.js failed');
+        console.log('load settings.js failed');
     }
 
     Env.HOME_URL = 'http://localhost:4200';

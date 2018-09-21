@@ -6,6 +6,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { of } from 'rxjs/observable/of';
 import { catchError, last, map, tap } from 'rxjs/operators';
 
+import { UploadFile } from '../models/upload-file.model';
+import { KairaiApiService } from '../services/kairai-api.service';
+
 
 @Component({
     selector: 'app-upload',
@@ -22,44 +25,41 @@ import { catchError, last, map, tap } from 'rxjs/operators';
 })
 export class UploadComponent implements OnInit {
 
-    endpoin = 'https://file.io';
     accept = 'text/csv';
     @Output() complete = new EventEmitter<string>();
 
-    private files: Array<FileUploadModel> = [];
+    private files: Array<UploadFile> = [];
 
-    constructor(private _http: HttpClient) { }
+    constructor(private kairaiApi: KairaiApiService) {}
+
+    ngOnInit() {}
 
     selectFiles(fileType) {
         const fileUpload = document.getElementById('fileUpload') as HTMLInputElement;
         fileUpload.onchange = () => {
-            for (let file of fileUpload.files) {
-                this.files.push({ data: file, state: 'in', 
-                inProgress: false, progress: 0, canCancel: true });
+        for (let i = 0; i < fileUpload.files.length; ++i) {
+                this.files.push(new UploadFile(fileUpload.files[i], fileType));
             }
             this.uploadFiles(fileType);
         };
         fileUpload.click();
       }
 
-      cancelFile(file: FileUploadModel) {
-            file.sub.unsubscribe();
-            this.removeFileFromArray(file);
+      cancelFile(file: UploadFile) {
+          file.subscription.unsubscribe();
+          this.removeFileFromArray(file);
       }
 
       setAccept(accept) {
           this.accept = accept;
       }
 
-      private uploadFile(file: FileUploadModel) {
+      private uploadFile(file: UploadFile) {
           const fd = new FormData();
-          fd.append('file', file.data);
-          const req = new HttpRequest('POST', this.target, fd, {
-              reportProgress: true
-          });
+          fd.append('qnaFile', file.data);
 
           file.inProgress = true;
-          file.sub = this._http.request(req).pipe(
+          file.subscription = this.kairaiApi.uploadFile(fd, file.type).pipe(
               map(event => {
                   switch (event.type) {
                       case HttpEventType.UploadProgress:
@@ -73,7 +73,6 @@ export class UploadComponent implements OnInit {
               last(),
               catchError((error: HttpErrorResponse) => {
                   file.inProgress = false;
-                  file.canRetry = true;
                   return of(`${file.data.name} upload failed.`);
               })
           ).subscribe(
@@ -85,7 +84,7 @@ export class UploadComponent implements OnInit {
           );
       }
 
-      private uploadFiles(fileType) {
+      private uploadFiles(fileType: string) {
           const fileUpload = document.getElementById('fileUpload') as HTMLInputElement;
           fileUpload.value = '';
 
@@ -94,7 +93,7 @@ export class UploadComponent implements OnInit {
           });
       }
 
-      private removeFileFromArray(file: FileUploadModel) {
+      private removeFileFromArray(file: UploadFile) {
           const index = this.files.indexOf(file);
           if (index > -1) {
               this.files.splice(index, 1);
