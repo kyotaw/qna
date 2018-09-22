@@ -1,0 +1,4 @@
+frontend-dev/environments/ set APISERVER_HOST
+frontend-dev/app/settings.ts set botUrl
+
+run ng server --host={host}
