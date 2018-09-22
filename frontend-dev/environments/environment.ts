@@ -6,5 +6,6 @@
 export const environment = {
     production: false,
     APISERVER_URL: 'http://localhost:6171/',
-    environment: 'dev'
+    environment: 'dev',
+    kbId: '60d9df79-03b7-48fe-9dc8-e24b01892a9b',
 };

@@ -2,6 +2,7 @@
 
 const express = require('express')
   , bodyParser = require('body-parser')
+  , busboy = require('connect-busboy')
   , cookieParser = require('cookie-parser')
   , passport = require('passport')
   , http = require('http')
@@ -20,6 +21,7 @@ async function start() {
     app.use(cors);
     app.use(passport.initialize());
 	app.use(bodyParser.json());
+    app.use(busboy());
 	app.use(bodyParser.urlencoded({extended: false}));
     app.use(decodeQuery);
 

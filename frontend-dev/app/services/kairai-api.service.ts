@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpEvent, HttpRequest, HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
@@ -18,10 +18,11 @@ export class KairaiApiService {
         return this._get(url, { kbId: kbId, environment: environment });
     }
 
-    uploadFile(file: FormData, fileType: string): Observable<Object> {
+    uploadFile(file: FormData, fileType: string, kbId: string): Observable<Object> {
         const url = this.baseUrl + 'qnas/files';
-        let options = {params: {fileType: fileType}};
-        return this._post(url, file, options);
+        let params = new HttpParams().append('fileType', fileType).append('kbId', kbId);
+        const req = new HttpRequest('POST', url, file, { reportProgress: true, params: params});
+        return this.http.request(req);
     }
 
     signUp(email: string, password: string) {

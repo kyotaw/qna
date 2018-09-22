@@ -10,7 +10,7 @@
 
  .upload-button {
   text-align: center;
-  margin: 20px auto;
+  margin: 50px auto;
  }
 
 .upload-icon {
@@ -32,6 +32,10 @@
 .upload-progress {
   margin: 0 auto;
   width: 50%;
+}
+
+.upload-error {
+  color: red;
 }
 
 li {

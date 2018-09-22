@@ -16,8 +16,18 @@ const qnaController = {
         }).catch (err => {
             shortcut.error500Response(res, err);
         });
-    }
+    },
 
+    importQnAs(req, res) {
+        req.pipe(req.busboy);
+        req.busboy.on('file', function (fieldname, file, filename) {
+            qnaService.importQnAsFromFile(file, req.query.fileType, req.query.kbId).then(() => {
+                shortcut.successResponse(res); 
+            }).catch (err => {
+                shortcut.error500Response(res, err);
+            });
+        });
+    }
 }
 
 

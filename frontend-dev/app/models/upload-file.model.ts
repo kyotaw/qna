@@ -3,21 +3,22 @@ import { Subscription } from 'rxjs';
 
 export class UploadFile {
     data: File;
-    type: string;
+    fileType: string;
     state: string;
-    inProgress: boolean;
     progress: number;
     canCancel: boolean;
+    errorMessage: string;
     subscription: Subscription;
 
 
-    constructor(data: File, type: string) {
+    constructor(data: File, fileType: string) {
         this.data = data;
-        this.type = type;
-        this.state = 'in';
-        this.inProgress = false;
+        this.fileType = fileType;
+        this.state = 'ready';
         this.progress = 0;
         this.canCancel = true;
+        this.errorMessage = '';
+        this.subscription = null;
     }
 
 }

@@ -6,9 +6,10 @@ const Client = new require('node-rest-client').Client
 const url = qnaMakerEnv.baseUrl + '/' + qnaMakerEnv.version;
 const client = new Client();
 
-function getHeaders() {
+function getHeaders(contentType='application/json') {
     return {
         'Ocp-Apim-Subscription-Key': qnaMakerEnv.subscriptionKey,
+        'Content-Type': contentType,
     }
 }
 
@@ -21,8 +22,34 @@ const qnaMaker = {
                 resolve(data);
             });
         });
-    }
+    },
 
+    updateKnowledgebase(kbId, addedQnas) {
+        return new Promise((resolve, reject) => {
+            const endPoint = [url, 'knowledgebases', kbId].join('/');
+            client.patch(
+                endPoint,
+                {
+                    data: { 'add': { 'qnaList': addedQnas } },
+                    headers: getHeaders(),
+                },
+                (data, res) => {
+                    resolve(data, res);
+                });
+        });
+    },
+
+    publishKnowledgebase(kbId) {
+        return new Promise((resolve, reject) => {
+            const endPoint = [url, 'knowledgebases', kbId].join('/');
+            client.post(
+                endPoint,
+                { headers: getHeaders() },
+                (data, res) => {
+                    resolve(data, res);
+                });
+        });
+    },
 }
 
 

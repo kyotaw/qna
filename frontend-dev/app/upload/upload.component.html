@@ -2,7 +2,7 @@
   <h2 class="error-msg">{{errorMessage}}</h2>
 
   <div class="toggle-container">
-    <mat-button-toggle-group name="fileType" aria-label="File Type" value="qna" #group="matButtonToggleGroup">
+    <mat-button-toggle-group name="fileType" aria-label="File Type" value="aqc" #group="matButtonToggleGroup">
       <mat-button-toggle value="aqc" (click)="setAccept('text/csv')">CSV (AQC format)</mat-button-toggle>
       <mat-button-toggle value="qna" (click)="setAccept('text/csv')">CSV (QnA Maker format)</mat-button-toggle>
     </mat-button-toggle-group>
@@ -16,13 +16,21 @@
   <br/>
   <div class="upload-progress">
     <ul>
-      <li *ngFor="let file of files" [@fadeInOut]="file.state">
+      <li *ngFor="let file of files" [@fadeInOut]="in">
         <mat-progress-bar [value]="file.progress"></mat-progress-bar>
         <span id="file-label">{{file.data.name}}
         </span>
           <a class="cancel-icon-wrapper" title="Cancel" (click)="cancelFile(file)" *ngIf="file.canCancel">
             <mat-icon class="cancel-icon">cancel</mat-icon>
           </a>
+      </li>
+      <li *ngFor="let file of completedFiles" [@fadeInOut]="in">
+        <mat-progress-bar [value]="file.progress"></mat-progress-bar>
+        <span id="file-label">{{file.data.name}}</span>
+        <span class="upload-error">{{file.errorMessage}}</span>
+        <a class="cancel-icon-wrapper" title="Cancel" (click)="cancelFile(file)" *ngIf="file.canCancel">
+          <mat-icon class="cancel-icon">cancel</mat-icon>
+        </a>
       </li>
     </ul>
   </div>

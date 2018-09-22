@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { HttpClient, HttpResponse, HttpRequest, 
+import { HttpClient, HttpResponse, HttpRequest, HttpEvent,
          HttpEventType, HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { of } from 'rxjs/observable/of';
@@ -8,6 +8,7 @@ import { catchError, last, map, tap } from 'rxjs/operators';
 
 import { UploadFile } from '../models/upload-file.model';
 import { KairaiApiService } from '../services/kairai-api.service';
+import { environment } from '../../environments/environment';
 
 
 @Component({
@@ -29,6 +30,7 @@ export class UploadComponent implements OnInit {
     @Output() complete = new EventEmitter<string>();
 
     private files: Array<UploadFile> = [];
+    private completedFiles: Array<UploadFile> = [];
 
     constructor(private kairaiApi: KairaiApiService) {}
 
@@ -54,49 +56,53 @@ export class UploadComponent implements OnInit {
           this.accept = accept;
       }
 
-      private uploadFile(file: UploadFile) {
-          const fd = new FormData();
-          fd.append('qnaFile', file.data);
+    private uploadFile(file: UploadFile) {
+        if (file.state != 'ready') {
+            return;
+        }
+        file.state = 'uploading';
+        const fd = new FormData();
+        fd.append('file', file.data);
 
-          file.inProgress = true;
-          file.subscription = this.kairaiApi.uploadFile(fd, file.type).pipe(
-              map(event => {
-                  switch (event.type) {
-                      case HttpEventType.UploadProgress:
-                          file.progress = Math.round(event.loaded * 100 / event.total);
-                          break;
-                      case HttpEventType.Response:
-                          return event;
-                  }
-              }),
-              tap(message => { }),
-              last(),
-              catchError((error: HttpErrorResponse) => {
-                  file.inProgress = false;
-                  return of(`${file.data.name} upload failed.`);
-              })
-          ).subscribe(
-              (event: any) => {
-                  if (typeof (event) === 'object') {
-                      this.complete.emit(event.body);
-                  }
-              }
-          );
-      }
+        file.subscription = this.kairaiApi.uploadFile(fd, file.fileType, environment.kbId).pipe(
+            map((event: HttpEvent<any>) => {
+                switch (event.type) {
+                    case HttpEventType.UploadProgress:
+                        file.progress = Math.round(event.loaded * 100 / event.total);
+                        break;
+                    case HttpEventType.Response:
+                        return event;
+                }
+            }),
+            tap(message => { }),
+            last(),
+            catchError((error: HttpErrorResponse) => {
+                file.state = 'error';
+                file.errorMessage = 'upload failed. reason: ' + error.error.message;
+                return of(`${file.data.name} upload failed.`);
+            })
+        ).subscribe(
+            (event: any) => {
+                file.state = 'completed';
+                this.completedFiles.push(file);
+                this.removeFileFromArray(file);
+            }
+        );
+    }
 
-      private uploadFiles(fileType: string) {
-          const fileUpload = document.getElementById('fileUpload') as HTMLInputElement;
-          fileUpload.value = '';
+    private uploadFiles(fileType: string) {
+        const fileUpload = document.getElementById('fileUpload') as HTMLInputElement;
+        fileUpload.value = '';
 
-          this.files.forEach(file => {
-              this.uploadFile(file);
-          });
-      }
+        this.files.forEach(file => {
+            this.uploadFile(file);
+        });
+    }
 
-      private removeFileFromArray(file: UploadFile) {
-          const index = this.files.indexOf(file);
-          if (index > -1) {
-              this.files.splice(index, 1);
-          }
-      }
+    private removeFileFromArray(file: UploadFile) {
+        const index = this.files.indexOf(file);
+        if (index > -1) {
+            this.files.splice(index, 1);
+        }
+    }
 }

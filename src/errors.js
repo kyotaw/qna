@@ -7,17 +7,7 @@ const ErrorTypes = {
     INVALID_PARAMETERS: 103,
     FAILED_SEND_EMAIL: 104,
 
-    MONO_ALREADY_EXISTS: 201,
-    MONO_NOT_FOUND: 202,
-
-    DATA_SOURCE_ALREADY_EXISTS: 301,
-    DATA_SOURCE_NOT_FOUND: 302,
-    
-    CHANNEL_ALREADY_OPEN: 401,
-    CHANNEL_NOT_OPEN: 402,
-
-    USER_ALREADY_EXISTS: 501,
-    USER_NOT_FOUND: 502,
+    INVALID_IMPORTED_CSV: 201,
 
     AUTH_NOT_AUTHORIZED: 601,
     AUTH_PASSWORD_DONOT_MATCH: 602,
@@ -34,14 +24,7 @@ ErrorMessages[ErrorTypes.MISSING_PARAMETERS] = 'missing parameters';
 ErrorMessages[ErrorTypes.INVALID_PARAMETERS] = 'invalid parameters';
 ErrorMessages[ErrorTypes.FAILED_SEND_EMAIL] = 'failed to send email';
 
-ErrorMessages[ErrorTypes.MONO_ALREADY_EXISTS] = 'the mono already exists';
-ErrorMessages[ErrorTypes.MONO_NOT_FOUND] = 'the mono not found';
-
-ErrorMessages[ErrorTypes.DATA_SOURCE_ALREADY_EXISTS] = 'the data source already exists';
-ErrorMessages[ErrorTypes.DATA_SOURCE_NOT_FOUND] = 'the data source not found';
-
-ErrorMessages[ErrorTypes.CHANNEL_ALREADY_OPEN] = 'channel already open';
-ErrorMessages[ErrorTypes.CHANNEL_ALREADY_OPEN] = 'channel not open';
+ErrorMessages[ErrorTypes.INVALID_IMPORTED_CSV] = 'invalid csv format';
 
 ErrorMessages[ErrorTypes.USER_ALREADY_EXISTS] = 'the user already exists';
 ErrorMessages[ErrorTypes.USER_NOT_FOUND] = 'the user not found';

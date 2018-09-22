@@ -15,6 +15,7 @@ function routes() {
 
     const qnas = root + 'qnas/';
     router.get(qnas, qnaController.getQnAs);
+    router.post(qnas + 'files', qnaController.importQnAs);
     
     // require authentication    
     //const authenticate = authFilter.authenticateWithJwt();

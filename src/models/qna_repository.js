@@ -14,8 +14,11 @@ const qnaRepository = {
             qnas.push(new QnA(d));
         }
         return qnas;
+    },
+    
+    async addQnAs(qnas, kbId) {
+        return await qnaMaker.updateKnowledgebase(kbId, qnas); 
     }
-
 }
 
 

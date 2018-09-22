@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material';
 
 import { QnAService } from '../services/qna.service';
 import { QnA } from '../models/qna.model';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-qnalist',
@@ -16,7 +17,7 @@ export class QnAListComponent implements OnInit {
     isLoaded: boolean;
 
     constructor(private qnaService: QnAService) {
-        this.currentKb =  '51cf11c3-891e-4d42-a7b6-b2b9f5af92f5';
+        this.currentKb = environment.kbId;
         this.qnas = null;
         this.isLoaded = false;
     }
