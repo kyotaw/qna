@@ -1,5 +1,6 @@
 .DS_Store
 node_modules
+settings.ts
 settings.js
 package-lock.json
 .env

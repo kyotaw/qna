@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Settings } from '../settings';
 
 @Component({
   selector: 'app-qbot',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./qbot.component.css']
 })
 export class QbotComponent implements OnInit {
+    
+  botUrl: string = Settings.botUrl;
 
   constructor() { }
 
