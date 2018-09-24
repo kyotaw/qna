@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Settings } from '../settings';
+import { DomSanitizer } from '@angular/platform-browser';
+import { settings } from '../settings';
 
 @Component({
   selector: 'app-qbot',
@@ -8,11 +9,12 @@ import { Settings } from '../settings';
 })
 export class QbotComponent implements OnInit {
     
-  botUrl: string = Settings.botUrl;
+    constructor(private sanitizer: DomSanitizer) { }
 
-  constructor() { }
+    ngOnInit() {
+    }
 
-  ngOnInit() {
-  }
-
+    get botUrl() {
+        return this.sanitizer.bypassSecurityTrustResourceUrl(settings.botUrl); 
+    }
 }
